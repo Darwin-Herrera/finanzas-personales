@@ -5,6 +5,12 @@ import {
   Mail,
   LockKeyhole,
   ArrowLeft,
+  ShieldCheck,
+  TrendingUp,
+  PieChart,
+  Eye,
+  EyeOff,
+  Sparkles,
 } from 'lucide-react'
 
 import { supabase } from '../lib/supabase'
@@ -20,6 +26,9 @@ export default function Auth() {
 
   const [password, setPassword] =
     useState('')
+
+  const [showPassword, setShowPassword] =
+    useState(false)
 
   const [loading, setLoading] =
     useState(false)
@@ -40,9 +49,7 @@ export default function Auth() {
     e.preventDefault()
 
     setLoading(true)
-
     setMessage('')
-
     setMessageType('info')
 
 
@@ -52,9 +59,7 @@ export default function Auth() {
 
     if (mode === 'login') {
 
-      const {
-        error,
-      } =
+      const { error } =
         await supabase.auth
           .signInWithPassword({
             email,
@@ -90,13 +95,10 @@ export default function Auth() {
     if (mode === 'register') {
 
       if (
-        password.length <
-        8
+        password.length < 8
       ) {
 
-        setLoading(
-          false
-        )
+        setLoading(false)
 
         setMessage(
           'La contraseña debe tener al menos 8 caracteres.'
@@ -110,9 +112,7 @@ export default function Auth() {
       }
 
 
-      const {
-        error,
-      } =
+      const { error } =
         await supabase.auth
           .signUp({
             email,
@@ -176,7 +176,6 @@ export default function Auth() {
 
 
       setLoading(true)
-
       setMessage('')
 
 
@@ -184,9 +183,7 @@ export default function Auth() {
         `${window.location.origin}${import.meta.env.BASE_URL}`
 
 
-      const {
-        error,
-      } =
+      const { error } =
         await supabase.auth
           .resetPasswordForEmail(
             email,
@@ -221,185 +218,132 @@ export default function Auth() {
         'success'
       )
 
-  }
+    }
 
 
   // ==================================================
-  // PANTALLA RECUPERACIÓN
+  // RECUPERACIÓN
   // ==================================================
 
-  if (
-    mode ===
-    'forgot'
-  ) {
+  if (mode === 'forgot') {
 
     return (
 
-      <main className="auth-page">
+      <main className="auth-pro-page">
 
-        <section className="auth-card">
+        <section className="auth-pro-shell">
 
-          <div className="brand auth-brand">
+          <VisualPanel />
 
-            <span className="brand-icon">
+          <div className="auth-pro-form-side">
 
-              <WalletCards
-                size={24}
-              />
+            <div className="auth-pro-form-card">
 
-            </span>
+              <button
+                type="button"
+                className="auth-back-btn"
+                onClick={() => {
+
+                  setMode('login')
+                  setMessage('')
+
+                }}
+              >
+
+                <ArrowLeft size={16} />
+
+                Volver
+
+              </button>
 
 
-            <div>
+              <div className="auth-mobile-brand">
 
-              <h1>
-                Mis Finanzas
-              </h1>
+                <Brand />
 
-              <p>
-                Control mensual personal
-              </p>
+              </div>
+
+
+              <div className="auth-form-heading">
+
+                <span className="auth-kicker">
+                  SEGURIDAD DE CUENTA
+                </span>
+
+                <h1>
+                  Recuperar contraseña
+                </h1>
+
+                <p>
+                  Ingresa el correo asociado a tu cuenta
+                  y te enviaremos un enlace seguro.
+                </p>
+
+              </div>
+
+
+              <form
+                className="auth-form-stack"
+                onSubmit={recoverPassword}
+              >
+
+                <label className="auth-field">
+
+                  <span>
+                    Correo electrónico
+                  </span>
+
+                  <div className="auth-input-wrap">
+
+                    <Mail
+                      size={18}
+                      className="auth-input-icon"
+                    />
+
+                    <input
+                      type="email"
+                      required
+                      value={email}
+                      onChange={(e) =>
+                        setEmail(
+                          e.target.value
+                        )
+                      }
+                      placeholder="correo@ejemplo.com"
+                    />
+
+                  </div>
+
+                </label>
+
+
+                {message && (
+
+                  <AuthMessage
+                    type={messageType}
+                  >
+                    {message}
+                  </AuthMessage>
+
+                )}
+
+
+                <button
+                  className="auth-main-btn"
+                  disabled={loading}
+                >
+
+                  {loading
+                    ? 'Enviando...'
+                    : 'Enviar enlace de recuperación'}
+
+                </button>
+
+              </form>
 
             </div>
 
           </div>
-
-
-          <button
-            type="button"
-            className="btn link"
-            onClick={() => {
-
-              setMode(
-                'login'
-              )
-
-              setMessage(
-                ''
-              )
-
-            }}
-            style={{
-              marginBottom:
-                '14px',
-            }}
-          >
-
-            <ArrowLeft
-              size={16}
-            />
-
-            Volver al inicio
-
-          </button>
-
-
-          <h2>
-            Recuperar contraseña
-          </h2>
-
-
-          <p className="muted">
-
-            Ingresa el correo
-            asociado a tu cuenta.
-
-          </p>
-
-
-          <form
-            onSubmit={
-              recoverPassword
-            }
-            className="form-stack"
-          >
-
-            <label>
-
-              Correo
-
-              <div
-                style={{
-                  position:
-                    'relative',
-                }}
-              >
-
-                <Mail
-                  size={17}
-                  style={{
-                    position:
-                      'absolute',
-
-                    left:
-                      '11px',
-
-                    top:
-                      '50%',
-
-                    transform:
-                      'translateY(-50%)',
-
-                    color:
-                      '#94a3b8',
-                  }}
-                />
-
-
-                <input
-                  type="email"
-                  required
-                  value={
-                    email
-                  }
-                  onChange={(
-                    e
-                  ) =>
-                    setEmail(
-                      e.target.value
-                    )
-                  }
-                  placeholder="correo@ejemplo.com"
-                  style={{
-                    paddingLeft:
-                      '38px',
-                  }}
-                />
-
-              </div>
-
-            </label>
-
-
-            {message && (
-
-              <Message
-                type={
-                  messageType
-                }
-              >
-
-                {message}
-
-              </Message>
-
-            )}
-
-
-            <button
-              className="btn primary"
-              disabled={
-                loading
-              }
-            >
-
-              {loading
-                ? 'Enviando...'
-                : 'Enviar enlace de recuperación'}
-
-            </button>
-
-          </form>
 
         </section>
 
@@ -416,216 +360,284 @@ export default function Auth() {
 
   return (
 
-    <main className="auth-page">
+    <main className="auth-pro-page">
 
-      <section className="auth-card">
+      <section className="auth-pro-shell">
 
-        <div className="brand auth-brand">
+        {/* =============================================
+            PANEL IZQUIERDO
+        ============================================= */}
 
-          <span className="brand-icon">
-
-            <WalletCards
-              size={24}
-            />
-
-          </span>
+        <VisualPanel />
 
 
-          <div>
+        {/* =============================================
+            FORMULARIO
+        ============================================= */}
 
-            <h1>
-              Mis Finanzas
-            </h1>
+        <div className="auth-pro-form-side">
 
-            <p>
-              Control mensual personal
-            </p>
+          <div className="auth-pro-form-card">
+
+            <div className="auth-mobile-brand">
+
+              <Brand />
+
+            </div>
+
+
+            <div className="auth-form-heading">
+
+              <span className="auth-kicker">
+
+                {mode === 'login'
+                  ? 'BIENVENIDO DE NUEVO'
+                  : 'COMIENZA AHORA'}
+
+              </span>
+
+
+              <h1>
+
+                {mode === 'login'
+                  ? 'Inicia sesión'
+                  : 'Crea tu cuenta'}
+
+              </h1>
+
+
+              <p>
+
+                {mode === 'login'
+                  ? 'Accede a tu panel financiero y continúa gestionando tu dinero.'
+                  : 'Crea una cuenta y empieza a organizar tus finanzas personales.'}
+
+              </p>
+
+            </div>
+
+
+            <form
+              className="auth-form-stack"
+              onSubmit={submit}
+            >
+
+              {/* ========================================
+                  CORREO
+              ======================================== */}
+
+              <label className="auth-field">
+
+                <span>
+                  Correo electrónico
+                </span>
+
+                <div className="auth-input-wrap">
+
+                  <Mail
+                    size={18}
+                    className="auth-input-icon"
+                  />
+
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) =>
+                      setEmail(
+                        e.target.value
+                      )
+                    }
+                    placeholder="correo@ejemplo.com"
+                  />
+
+                </div>
+
+              </label>
+
+
+              {/* ========================================
+                  PASSWORD
+              ======================================== */}
+
+              <label className="auth-field">
+
+                <div className="auth-label-row">
+
+                  <span>
+                    Contraseña
+                  </span>
+
+                  {mode === 'login' && (
+
+                    <button
+                      type="button"
+                      className="auth-forgot"
+                      onClick={() => {
+
+                        setMode('forgot')
+                        setMessage('')
+
+                      }}
+                    >
+                      ¿La olvidaste?
+                    </button>
+
+                  )}
+
+                </div>
+
+
+                <div className="auth-input-wrap">
+
+                  <LockKeyhole
+                    size={18}
+                    className="auth-input-icon"
+                  />
+
+                  <input
+                    type={
+                      showPassword
+                        ? 'text'
+                        : 'password'
+                    }
+                    required
+                    minLength={
+                      mode === 'register'
+                        ? 8
+                        : 6
+                    }
+                    value={password}
+                    onChange={(e) =>
+                      setPassword(
+                        e.target.value
+                      )
+                    }
+                    placeholder={
+                      mode === 'register'
+                        ? 'Mínimo 8 caracteres'
+                        : 'Ingresa tu contraseña'
+                    }
+                  />
+
+
+                  <button
+                    type="button"
+                    className="auth-password-toggle"
+                    onClick={() =>
+                      setShowPassword(
+                        !showPassword
+                      )
+                    }
+                  >
+
+                    {showPassword
+                      ? (
+                        <EyeOff size={18} />
+                      )
+                      : (
+                        <Eye size={18} />
+                      )}
+
+                  </button>
+
+                </div>
+
+              </label>
+
+
+              {/* ========================================
+                  MENSAJE
+              ======================================== */}
+
+              {message && (
+
+                <AuthMessage
+                  type={messageType}
+                >
+                  {message}
+                </AuthMessage>
+
+              )}
+
+
+              {/* ========================================
+                  BOTÓN PRINCIPAL
+              ======================================== */}
+
+              <button
+                className="auth-main-btn"
+                disabled={loading}
+              >
+
+                {loading
+                  ? 'Procesando...'
+                  : mode === 'login'
+                    ? 'Entrar a mi cuenta'
+                    : 'Crear mi cuenta'}
+
+              </button>
+
+            </form>
+
+
+            {/* ==========================================
+                CAMBIO LOGIN / REGISTER
+            ========================================== */}
+
+            <div className="auth-switch">
+
+              <span>
+
+                {mode === 'login'
+                  ? '¿Todavía no tienes una cuenta?'
+                  : '¿Ya tienes una cuenta?'}
+
+              </span>
+
+
+              <button
+                type="button"
+                onClick={() => {
+
+                  setMode(
+                    mode === 'login'
+                      ? 'register'
+                      : 'login'
+                  )
+
+                  setMessage('')
+                  setPassword('')
+
+                }}
+              >
+
+                {mode === 'login'
+                  ? 'Crear cuenta'
+                  : 'Iniciar sesión'}
+
+              </button>
+
+            </div>
+
+
+            {/* ==========================================
+                SEGURIDAD
+            ========================================== */}
+
+            <div className="auth-security">
+
+              <ShieldCheck size={16} />
+
+              <span>
+                Protegido con autenticación segura
+              </span>
+
+            </div>
 
           </div>
 
         </div>
-
-
-        <h2>
-
-          {mode ===
-          'login'
-            ? 'Iniciar sesión'
-            : 'Crear cuenta'}
-
-        </h2>
-
-
-        <p className="muted">
-
-          Tus movimientos se
-          guardan de forma segura
-          en tu cuenta.
-
-        </p>
-
-
-        <form
-          onSubmit={
-            submit
-          }
-          className="form-stack"
-        >
-
-          <label>
-
-            Correo
-
-            <input
-              type="email"
-              required
-              value={
-                email
-              }
-              onChange={(
-                e
-              ) =>
-                setEmail(
-                  e.target.value
-                )
-              }
-              placeholder="correo@ejemplo.com"
-            />
-
-          </label>
-
-
-          <label>
-
-            Contraseña
-
-            <input
-              type="password"
-              required
-              minLength={
-                mode ===
-                'register'
-                  ? 8
-                  : 6
-              }
-              value={
-                password
-              }
-              onChange={(
-                e
-              ) =>
-                setPassword(
-                  e.target.value
-                )
-              }
-              placeholder={
-                mode ===
-                'register'
-                  ? 'Mínimo 8 caracteres'
-                  : 'Tu contraseña'
-              }
-            />
-
-          </label>
-
-
-          {message && (
-
-            <Message
-              type={
-                messageType
-              }
-            >
-
-              {message}
-
-            </Message>
-
-          )}
-
-
-          <button
-            className="btn primary"
-            disabled={
-              loading
-            }
-          >
-
-            {loading
-              ? 'Procesando...'
-              : mode ===
-                'login'
-                ? 'Entrar'
-                : 'Registrarme'}
-
-          </button>
-
-        </form>
-
-
-        {/* ============================================
-            OLVIDÉ CONTRASEÑA
-        ============================================ */}
-
-        {mode ===
-          'login' && (
-
-          <button
-            type="button"
-            className="btn link"
-            onClick={() => {
-
-              setMode(
-                'forgot'
-              )
-
-              setMessage(
-                ''
-              )
-
-            }}
-          >
-
-            ¿Olvidaste tu contraseña?
-
-          </button>
-
-        )}
-
-
-        {/* ============================================
-            CAMBIAR LOGIN / REGISTRO
-        ============================================ */}
-
-        <button
-          type="button"
-          className="btn link"
-          onClick={() => {
-
-            setMode(
-              mode ===
-                'login'
-                ? 'register'
-                : 'login'
-            )
-
-            setMessage(
-              ''
-            )
-
-            setPassword(
-              ''
-            )
-
-          }}
-        >
-
-          {mode ===
-          'login'
-            ? '¿No tienes cuenta? Crear una'
-            : 'Ya tengo una cuenta'}
-
-        </button>
 
       </section>
 
@@ -637,69 +649,189 @@ export default function Auth() {
 
 
 // ==================================================
-// MENSAJE
+// PANEL VISUAL
 // ==================================================
 
-function Message({
+function VisualPanel() {
+
+  return (
+
+    <aside className="auth-visual">
+
+      <div className="auth-visual-glow auth-glow-one"></div>
+
+      <div className="auth-visual-glow auth-glow-two"></div>
+
+
+      <div className="auth-visual-content">
+
+        <Brand />
+
+
+        <div className="auth-visual-copy">
+
+          <span className="auth-visual-chip">
+
+            <Sparkles size={15} />
+
+            Finanzas bajo control
+
+          </span>
+
+
+          <h2>
+
+            Organiza hoy.
+            <br />
+
+            <span>
+              Decide mejor mañana.
+            </span>
+
+          </h2>
+
+
+          <p>
+            Lleva el control de ingresos, gastos,
+            ahorros y compromisos desde un solo lugar.
+          </p>
+
+        </div>
+
+
+        <div className="auth-preview-card">
+
+          <div className="auth-preview-top">
+
+            <div>
+
+              <small>
+                Disponible del mes
+              </small>
+
+              <strong>
+                L 14,807.74
+              </strong>
+
+            </div>
+
+
+            <div className="auth-preview-icon">
+
+              <WalletCards size={22} />
+
+            </div>
+
+          </div>
+
+
+          <div className="auth-preview-line">
+
+            <span>
+              <TrendingUp size={16} />
+              Ingresos
+            </span>
+
+            <strong>
+              L 38,600.00
+            </strong>
+
+          </div>
+
+
+          <div className="auth-preview-line">
+
+            <span>
+              <PieChart size={16} />
+              Salidas
+            </span>
+
+            <strong>
+              L 23,792.26
+            </strong>
+
+          </div>
+
+
+          <div className="auth-preview-progress">
+
+            <div
+              className="auth-preview-progress-value"
+            ></div>
+
+          </div>
+
+        </div>
+
+
+        <div className="auth-visual-footer">
+
+          <ShieldCheck size={16} />
+
+          <span>
+            Tus datos están protegidos y separados por usuario.
+          </span>
+
+        </div>
+
+      </div>
+
+    </aside>
+
+  )
+
+}
+
+
+// ==================================================
+// BRAND
+// ==================================================
+
+function Brand() {
+
+  return (
+
+    <div className="auth-pro-brand">
+
+      <span className="auth-pro-brand-icon">
+
+        <WalletCards size={24} />
+
+      </span>
+
+
+      <div>
+
+        <strong>
+          Mis Finanzas
+        </strong>
+
+        <small>
+          Finanzas personales inteligentes
+        </small>
+
+      </div>
+
+    </div>
+
+  )
+
+}
+
+
+// ==================================================
+// MENSAJES
+// ==================================================
+
+function AuthMessage({
   children,
   type,
 }) {
 
-  const styles = {
-
-    success: {
-      background:
-        '#ecfdf5',
-
-      color:
-        '#047857',
-
-      border:
-        '1px solid #a7f3d0',
-    },
-
-    error: {
-      background:
-        '#fff1f2',
-
-      color:
-        '#be123c',
-
-      border:
-        '1px solid #fecdd3',
-    },
-
-    info: {
-      background:
-        '#eff6ff',
-
-      color:
-        '#1d4ed8',
-
-      border:
-        '1px solid #bfdbfe',
-    },
-
-  }
-
-
   return (
 
     <div
-      style={{
-        padding:
-          '10px 12px',
-
-        borderRadius:
-          '9px',
-
-        fontSize:
-          '12px',
-
-        ...styles[
-          type
-        ],
-      }}
+      className={`auth-message auth-message-${type}`}
     >
 
       {children}
