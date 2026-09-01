@@ -926,48 +926,216 @@ label { display: grid; gap: 6px; font-size: 12px; color: #526075; font-weight: 6
 
 
 /* ======================================================
-   RESPONSIVE
+   RESPONSIVE LOGIN PRO
+   TABLET / MÓVIL
 ====================================================== */
 
-@media (
-  max-width: 900px
-) {
+@media (max-width: 900px) {
 
   .auth-pro-page {
     padding: 18px;
+
+    align-items: start;
+
+    background:
+      radial-gradient(
+        circle at 15% 10%,
+        rgba(37, 99, 235, .13),
+        transparent 35%
+      ),
+      #f3f6fb;
   }
 
 
   .auth-pro-shell {
+    width: min(580px, 100%);
     min-height: auto;
 
-    grid-template-columns:
-      1fr;
+    grid-template-columns: 1fr;
 
-    max-width: 560px;
+    border-radius: 24px;
+
+    overflow: hidden;
   }
 
 
+  /* ===============================================
+     NO OCULTAMOS EL PANEL AZUL
+  =============================================== */
+
   .auth-visual {
+    display: block;
+
+    min-height: auto;
+
+    background:
+      linear-gradient(
+        145deg,
+        #071228,
+        #102b63 58%,
+        #0f766e
+      );
+  }
+
+
+  .auth-visual-content {
+    min-height: auto;
+
+    padding:
+      28px 30px 32px;
+  }
+
+
+  /* ===============================================
+     BRAND SUPERIOR
+  =============================================== */
+
+  .auth-visual
+  .auth-pro-brand {
+    margin-bottom: 34px;
+  }
+
+
+  .auth-pro-brand-icon {
+    width: 44px;
+    height: 44px;
+
+    flex-basis: 44px;
+
+    border-radius: 13px;
+  }
+
+
+  .auth-pro-brand strong {
+    font-size: 17px;
+  }
+
+
+  .auth-pro-brand small {
+    font-size: 10px;
+  }
+
+
+  /* ===============================================
+     TEXTO HERO
+  =============================================== */
+
+  .auth-visual-copy {
+    margin-top: 0;
+
+    max-width: 100%;
+  }
+
+
+  .auth-visual-chip {
+    margin-bottom: 16px;
+
+    padding:
+      6px 10px;
+
+    font-size: 10px;
+  }
+
+
+  .auth-visual-copy h2 {
+    font-size: 34px;
+
+    line-height: 1.05;
+
+    letter-spacing: -.04em;
+  }
+
+
+  .auth-visual-copy p {
+    margin-top: 14px;
+
+    margin-bottom: 0;
+
+    max-width: 100%;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+  }
+
+
+  /* ===============================================
+     TARJETA RESUMEN
+  =============================================== */
+
+  .auth-preview-card {
+    width: 100%;
+
+    margin-top: 24px;
+
+    padding: 17px;
+
+    border-radius: 17px;
+  }
+
+
+  .auth-preview-top {
+    padding-bottom: 14px;
+
+    margin-bottom: 10px;
+  }
+
+
+  .auth-preview-top strong {
+    font-size: 21px;
+  }
+
+
+  .auth-preview-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+
+  .auth-preview-line {
+    padding: 6px 0;
+
+    font-size: 11px;
+  }
+
+
+  .auth-visual-footer {
+    margin-top: 22px;
+
+    padding-top: 0;
+
+    font-size: 10px;
+  }
+
+
+  /* ===============================================
+     FORMULARIO
+  =============================================== */
+
+  .auth-pro-form-side {
+    padding:
+      35px 30px 38px;
+
+    background: white;
+  }
+
+
+  /* Ya tenemos el logo arriba,
+     así que no repetimos otro logo
+     dentro del formulario */
+
+  .auth-mobile-brand {
     display: none;
   }
 
 
-  .auth-pro-form-side {
-    padding:
-      32px 26px 38px;
+  .auth-pro-form-card {
+    width: 100%;
   }
 
 
-  .auth-mobile-brand {
-    display: block;
-    margin-bottom: 42px;
-  }
-
-
-  .auth-mobile-brand
-  .auth-pro-brand small {
-    color: #8390a2;
+  .auth-form-heading {
+    margin-bottom: 25px;
   }
 
 
@@ -975,44 +1143,230 @@ label { display: grid; gap: 6px; font-size: 12px; color: #526075; font-weight: 6
     font-size: 30px;
   }
 
+
+  .auth-form-heading p {
+    max-width: 440px;
+  }
+
 }
 
 
-@media (
-  max-width: 520px
-) {
+
+/* ======================================================
+   TELÉFONOS
+====================================================== */
+
+@media (max-width: 520px) {
 
   .auth-pro-page {
     padding: 0;
 
-    background:
-      white;
+    display: block;
+
+    background: white;
   }
 
 
   .auth-pro-shell {
+    width: 100%;
+
     min-height: 100vh;
 
     border: 0;
+
     border-radius: 0;
 
     box-shadow: none;
   }
 
 
-  .auth-pro-form-side {
-    padding:
-      27px 20px;
+  /* ===============================================
+     HERO MÓVIL
+  =============================================== */
+
+  .auth-visual {
+    border-radius: 0;
   }
 
 
-  .auth-mobile-brand {
-    margin-bottom: 48px;
+  .auth-visual-content {
+    padding:
+      22px 20px 27px;
+  }
+
+
+  .auth-visual
+  .auth-pro-brand {
+    margin-bottom: 27px;
+  }
+
+
+  .auth-pro-brand-icon {
+    width: 42px;
+    height: 42px;
+
+    flex-basis: 42px;
+  }
+
+
+  .auth-pro-brand strong {
+    font-size: 16px;
+  }
+
+
+  .auth-pro-brand small {
+    font-size: 9px;
+  }
+
+
+  .auth-visual-chip {
+    margin-bottom: 13px;
+
+    padding:
+      5px 9px;
+
+    font-size: 9px;
+  }
+
+
+  .auth-visual-copy h2 {
+    font-size: 29px;
+
+    line-height: 1.06;
+  }
+
+
+  .auth-visual-copy p {
+    margin-top: 12px;
+
+    font-size: 11px;
+
+    line-height: 1.55;
+  }
+
+
+  /* ===============================================
+     EN TELÉFONO OCULTAMOS SOLO LA TARJETA GRANDE
+     PARA NO HACER EL LOGIN DEMASIADO LARGO
+  =============================================== */
+
+  .auth-preview-card {
+    display: none;
+  }
+
+
+  .auth-visual-footer {
+    margin-top: 20px;
+
+    font-size: 9px;
+
+    opacity: .9;
+  }
+
+
+  /* ===============================================
+     FORMULARIO
+  =============================================== */
+
+  .auth-pro-form-side {
+    padding:
+      29px 20px 35px;
+  }
+
+
+  .auth-form-heading {
+    margin-bottom: 23px;
+  }
+
+
+  .auth-kicker {
+    font-size: 9px;
+
+    margin-bottom: 8px;
   }
 
 
   .auth-form-heading h1 {
     font-size: 28px;
+
+    margin-bottom: 7px;
+  }
+
+
+  .auth-form-heading p {
+    font-size: 12px;
+
+    line-height: 1.55;
+  }
+
+
+  .auth-form-stack {
+    gap: 16px;
+  }
+
+
+  .auth-input-wrap input {
+    height: 48px;
+
+    border-radius: 11px;
+  }
+
+
+  .auth-main-btn {
+    height: 50px;
+
+    border-radius: 11px;
+  }
+
+
+  .auth-switch {
+    margin-top: 23px;
+
+    flex-direction: row;
+
+    flex-wrap: wrap;
+
+    gap: 5px;
+
+    font-size: 11px;
+  }
+
+
+  .auth-security {
+    margin-top: 25px;
+
+    padding-top: 16px;
+  }
+
+}
+
+
+
+/* ======================================================
+   TELÉFONOS MUY PEQUEÑOS
+====================================================== */
+
+@media (max-width: 380px) {
+
+  .auth-visual-content {
+    padding:
+      19px 17px 23px;
+  }
+
+
+  .auth-visual-copy h2 {
+    font-size: 26px;
+  }
+
+
+  .auth-pro-form-side {
+    padding:
+      25px 17px 30px;
+  }
+
+
+  .auth-form-heading h1 {
+    font-size: 26px;
   }
 
 
