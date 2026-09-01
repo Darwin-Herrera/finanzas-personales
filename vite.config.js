@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  // Para GitHub Pages cambia "/" por "/NOMBRE-DEL-REPOSITORIO/"
-  // Ejemplo: base: "/finanzas-personales/"
-  base: "/"
+
+  // Ruta base para GitHub Pages
+  base: '/finanzas-personales/',
 })
